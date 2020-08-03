@@ -28,7 +28,7 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String API_KEY = "&appid=c4a9d942005b0149bb4c00d3911c2952";
+    private static final String API_KEY = "";
     private TextView result,tempHeading,minTempHeading,maxTempHeading,temp_value,minTemp_value,maxTemp_value;
     private EditText city;
     private RequestQueue requestQueue;
