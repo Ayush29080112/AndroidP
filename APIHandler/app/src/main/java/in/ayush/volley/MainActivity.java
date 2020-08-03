@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private Button button;
     private RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         button = findViewById(R.id.button);
 
-        requestQueue = Volley.newRequestQueue(this);
+//        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,12 +45,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendApiRequest() {
-        String url = "https://github.com/Ayush29080112/AndroidP/blob/master/VolleyOne.json";
+        String url = "https://my-json-server.typicode.com/Ayush29080112/AndroidP/db";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<String>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-              Log.e("Json array", response);
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray =  response.getJSONArray("students");
+                    Log.e("Json array", jsonArray.toString());
+                    for (int i=0;i < jsonArray.length();i++){
+                        JSONObject student = jsonArray.getJSONObject(i);
+                        String name = student.getString("name");
+                        int course_count = student.getInt("course_count");
+                        String email = student.getString("email");
+
+                        textView.append("Name "+name+"Course count "+ String.valueOf(course_count)+ "email "+email+"\n");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
