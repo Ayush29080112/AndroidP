@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     DialogFragment resultDialog = new ResultDialog();
                     resultDialog.setArguments(bundle);
                     resultDialog.setCancelable(true);
-                    resultDialog.show(getSupportFragmentManager(),FaceDetection.RESULT_DIALOG);
+                    resultDialog.show(getSupportFragmentManager(),);
                 }
             }
         });
